@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:bloc_test/data/models/item_models.dart';
 
 class LocalDataSource {
   List<ItemModel> items = [];
+  List<Int> idselected = [];
 
   Future<List<ItemModel>> getAllItems() async {
     return items
@@ -27,9 +29,10 @@ class LocalDataSource {
   }
 
   Future<void> reorderableItem(int oldIndex, int newIndex) async {
-    var temp = items[oldIndex].id;
-    items[oldIndex] =
-        ItemModel(id: items[newIndex].id, name: items[oldIndex].name);
-    items[newIndex] = ItemModel(id: temp, name: items[newIndex].name);
+    ItemModel tempOld = items[oldIndex];
+    ItemModel tempNew = items[newIndex];
+
+    items[oldIndex] = ItemModel(id: tempOld.id, name: tempNew.name);
+    items[newIndex] = ItemModel(id: tempNew.id, name: tempOld.name);
   }
 }

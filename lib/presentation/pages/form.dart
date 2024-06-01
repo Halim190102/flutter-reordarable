@@ -20,13 +20,11 @@ class ItemFormPage extends StatefulWidget {
 class _ItemFormPageState extends State<ItemFormPage> {
   final _formKey = GlobalKey<FormState>();
   final name = TextEditingController();
-  final id = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
     name.dispose();
-    id.dispose();
   }
 
   @override
@@ -34,7 +32,6 @@ class _ItemFormPageState extends State<ItemFormPage> {
     super.initState();
     if (widget.isEditing && widget.item != null) {
       name.text = widget.item!.name;
-      id.text = widget.item!.id.toString();
     }
   }
 
@@ -62,16 +59,6 @@ class _ItemFormPageState extends State<ItemFormPage> {
                   return null;
                 },
               ),
-              TextFormField(
-                controller: id,
-                decoration: const InputDecoration(labelText: 'Item id'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a id';
-                  }
-                  return null;
-                },
-              ),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
@@ -79,7 +66,7 @@ class _ItemFormPageState extends State<ItemFormPage> {
                     final item = ItemModel(
                       id: widget.isEditing
                           ? widget.item!.id
-                          : int.parse(id.text),
+                          : DateTime.now().millisecondsSinceEpoch,
                       name: name.text,
                     );
                     if (widget.isEditing) {

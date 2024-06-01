@@ -62,6 +62,18 @@ class ItemBloc extends Bloc<ItemEvent, ItemState> {
     on<ReorderableItemEvent>((event, emit) async {
       try {
         await reorderableItem(event.oldIndex, event.newIndex);
+        add(GetAllItemsEvent());
+      } catch (e) {
+        emit(ItemError(e.toString()));
+      }
+    });
+
+    on<DeleteMultipleItemsEvent>((event, emit) async {
+      try {
+        for (var id in event.ids) {
+          await deleteItem(id);
+        }
+        add(GetAllItemsEvent());
       } catch (e) {
         emit(ItemError(e.toString()));
       }

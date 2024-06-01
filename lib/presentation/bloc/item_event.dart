@@ -27,3 +27,9 @@ class ReorderableItemEvent extends ItemEvent {
 
   ReorderableItemEvent(this.oldIndex, this.newIndex);
 }
+
+class DeleteMultipleItemsEvent extends ItemEvent {
+  final List<int> ids;
+
+  DeleteMultipleItemsEvent(this.ids);
+}

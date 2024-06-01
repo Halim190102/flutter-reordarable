@@ -34,6 +34,7 @@ class _MyAppState extends State<MyApp> {
         reorderableItem: ReorderableItem(widget.itemRepositoryimpl),
       )..add(GetAllItemsEvent()),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
